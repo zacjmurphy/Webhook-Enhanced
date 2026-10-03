@@ -19,6 +19,7 @@ artifacts:
   - "MQTTnet.dll"
   - "MQTTnet.Extensions.ManagedClient.dll"
 changelog: |-
+  - Add Live TV (IPTV) playback notifications (EnableLiveTv, IsLiveTv template flag)
   - Unstable: Update to latest Jellyfin preview packages (#387) @crobibero, @jellyfin-bot
   - Construct SMTP addresses by parsing (#324) @andrasmaroy
   - Fix color formatting in Discord template (#390) @espdesign
