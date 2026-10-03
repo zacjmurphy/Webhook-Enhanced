@@ -1,0 +1,18 @@
+name: 'Create/Update Release Draft & Release Bump PR'
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - build.yaml
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - update-prep-command
+
+jobs:
+  call:
+    uses: zacjmurphy/jellyfin-meta-plugins/.github/workflows/changelog.yaml@main
+    with:
+      repository-name: zacjmurphy/Webhook-Enhanced
