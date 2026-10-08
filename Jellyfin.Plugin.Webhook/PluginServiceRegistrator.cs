@@ -2,6 +2,7 @@ using Jellyfin.Data.Events.System;
 using Jellyfin.Data.Events.Users;
 using Jellyfin.Plugin.Webhook.Destinations;
 using Jellyfin.Plugin.Webhook.Destinations.Discord;
+using Jellyfin.Plugin.Webhook.Destinations.Fluxer;
 using Jellyfin.Plugin.Webhook.Destinations.Generic;
 using Jellyfin.Plugin.Webhook.Destinations.GenericForm;
 using Jellyfin.Plugin.Webhook.Destinations.Gotify;
@@ -40,6 +41,7 @@ public class PluginServiceRegistrator : IPluginServiceRegistrator
         HandlebarsFunctionHelpers.RegisterHelpers();
 
         serviceCollection.AddScoped<IWebhookClient<DiscordOption>, DiscordClient>();
+        serviceCollection.AddScoped<IWebhookClient<FluxerOption>, FluxerClient>();
         serviceCollection.AddScoped<IWebhookClient<GenericOption>, GenericClient>();
         serviceCollection.AddScoped<IWebhookClient<GenericFormOption>, GenericFormClient>();
         serviceCollection.AddScoped<IWebhookClient<GotifyOption>, GotifyClient>();

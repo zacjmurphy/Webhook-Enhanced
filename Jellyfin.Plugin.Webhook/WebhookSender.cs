@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Jellyfin.Plugin.Webhook.Configuration;
 using Jellyfin.Plugin.Webhook.Destinations;
 using Jellyfin.Plugin.Webhook.Destinations.Discord;
+using Jellyfin.Plugin.Webhook.Destinations.Fluxer;
 using Jellyfin.Plugin.Webhook.Destinations.Generic;
 using Jellyfin.Plugin.Webhook.Destinations.GenericForm;
 using Jellyfin.Plugin.Webhook.Destinations.Gotify;
@@ -26,6 +27,7 @@ public class WebhookSender : IWebhookSender
 {
     private readonly ILogger<WebhookSender> _logger;
     private readonly IWebhookClient<DiscordOption> _discordClient;
+    private readonly IWebhookClient<FluxerOption> _fluxerClient;
     private readonly IWebhookClient<GenericOption> _genericClient;
     private readonly IWebhookClient<GenericFormOption> _genericFormClient;
     private readonly IWebhookClient<GotifyOption> _gotifyClient;
@@ -40,6 +42,7 @@ public class WebhookSender : IWebhookSender
     /// </summary>
     /// <param name="logger">Instance of the <see cref="ILogger{WebhookSender}"/> interface.</param>
     /// <param name="discordClient">Instance of <see cref="IWebhookClient{DiscordOption}"/>.</param>
+    /// <param name="fluxerClient">Instance of <see cref="iWebhookClient{FluxerOption}"/>,</param>
     /// /// <param name="genericClient">Instance of the <see cref="IWebhookClient{GenericOption}"/>.</param>
     /// <param name="genericFormClient">Instance of the <see cref="IWebhookClient{GenericFormOption}"/>.</param>
     /// <param name="gotifyClient">Instance of <see cref="IWebhookClient{GotifyOption}"/>.</param>
@@ -51,6 +54,7 @@ public class WebhookSender : IWebhookSender
     public WebhookSender(
         ILogger<WebhookSender> logger,
         IWebhookClient<DiscordOption> discordClient,
+        IWebhookClient<FluxerOption> fluxerClient,
         IWebhookClient<GenericOption> genericClient,
         IWebhookClient<GenericFormOption> genericFormClient,
         IWebhookClient<GotifyOption> gotifyClient,
@@ -62,6 +66,7 @@ public class WebhookSender : IWebhookSender
     {
         _logger = logger;
         _discordClient = discordClient;
+        _fluxerClient = fluxerClient;
         _genericClient = genericClient;
         _genericFormClient = genericFormClient;
         _gotifyClient = gotifyClient;
@@ -81,6 +86,12 @@ public class WebhookSender : IWebhookSender
         foreach (var option in Configuration.DiscordOptions.Where(o => o.NotificationTypes.Contains(notificationType)))
         {
             await SendNotification(_discordClient, option, itemData, itemType)
+                .ConfigureAwait(false);
+        }
+
+        foreach (var option in Configuration.FluxerOptions.Where(o => o.NotificationTypes.Contains(notificationType)))
+        {
+            await SendNotification(_fluxerClient, option, itemData, itemType)
                 .ConfigureAwait(false);
         }
 

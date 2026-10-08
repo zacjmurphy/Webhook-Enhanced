@@ -1,0 +1,65 @@
+{
+  "embeds": [
+    {
+      "author": {
+        "name": "{{#if_equals ItemType 'Episode'}}⏹️ Playback Stopped • {{{SeriesName}}} S{{SeasonNumber00}}E{{EpisodeNumber00}} ~ {{{Name}}}{{else}}{{#if_equals ItemType 'Movie'}}🛑 Playback Stopped • {{{Name}}}{{#if_exist Year}} ({{Year}}){{/if_exist}}{{else}}{{#if_equals ItemType 'Audio'}}⏸️ Playback Stopped • {{{Name}}}{{else}}⏹️ Playback Stopped • {{{Name}}}{{/if_equals}}{{/if_equals}}{{/if_equals}}",
+        "url": "{{ServerUrl}}/web/index.html#!/details?id={{ItemId}}&serverId={{ServerId}}"
+      },
+      "thumbnail": {
+        "url": "{{ServerUrl}}/Items/{{ItemId}}/Images/Primary"
+      },
+      "image": {
+        "url": "{{ServerUrl}}/Items/{{ItemId}}/Images/Backdrop"
+      },
+      "description": "{{#if_exist Overview}}> {{{Overview}}}{{/if_exist}}",
+      "color": 12737371,
+      "fields": [
+        {{#if_exist PremiereDate}}
+        {
+          "name": "Release Date",
+          "value": "{{PremiereDate}}",
+          "inline": true
+        }{{/if_exist}}{{#if_exist Genres}},
+        {
+          "name": "Genre",
+          "value": "{{Genres}}",
+          "inline": true
+        }{{/if_exist}},
+        {
+          "name": "User",
+          "value": "{{{NotificationUsername}}}",
+          "inline": true
+        }{{#if_exist ClientName}},
+        {
+          "name": "Client",
+          "value": "{{ClientName}}",
+          "inline": true
+        }{{/if_exist}}{{#if_exist DeviceName}},
+        {
+          "name": "Device",
+          "value": "{{DeviceName}}",
+          "inline": true
+        }{{/if_exist}}{{#if_exist PlayMethod}},
+        {
+          "name": "Play Method",
+          "value": "{{PlayMethod}}",
+          "inline": true
+        }{{/if_exist}}{{#if_exist PlaybackPosition}},
+        {
+          "name": "Runtime",
+          "value": "`[{{PlaybackPosition}}/{{RunTime}}]`",
+          "inline": true
+        }{{/if_exist}},
+        {
+          "name": "Jellyfin",
+          "value": "[Open]({{ServerUrl}}/web/index.html#!/details?id={{ItemId}}&serverId={{ServerId}})",
+          "inline": true
+        }
+      ],
+      "footer": {
+        "text": "{{{ServerName}}}"
+      },
+      "timestamp": "{{Timestamp}}"
+    }
+  ]
+}

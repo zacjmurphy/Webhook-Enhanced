@@ -1,5 +1,6 @@
 using System;
 using Jellyfin.Plugin.Webhook.Destinations.Discord;
+using Jellyfin.Plugin.Webhook.Destinations.Fluxer;
 using Jellyfin.Plugin.Webhook.Destinations.Generic;
 using Jellyfin.Plugin.Webhook.Destinations.GenericForm;
 using Jellyfin.Plugin.Webhook.Destinations.Gotify;
@@ -26,6 +27,7 @@ public class PluginConfiguration : BasePluginConfiguration
         ItemNotificationDelay = 5;
         ServerUrl = string.Empty;
         DiscordOptions = Array.Empty<DiscordOption>();
+        FluxerOptions = Array.Empty<FluxerOption>();
         GenericOptions = Array.Empty<GenericOption>();
         GenericFormOptions = Array.Empty<GenericFormOption>();
         GotifyOptions = Array.Empty<GotifyOption>();
@@ -51,6 +53,11 @@ public class PluginConfiguration : BasePluginConfiguration
     /// Gets or sets the discord options.
     /// </summary>
     public DiscordOption[] DiscordOptions { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Fluxer options.
+    /// </summary>
+    public FluxerOption[] FluxerOptions { get; set; }
 
     /// <summary>
     /// Gets or sets the generic options.

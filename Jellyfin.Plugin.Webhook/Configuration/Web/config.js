@@ -329,6 +329,48 @@ export default function (view) {
                 return config;
             }
         },
+        fluxer: {
+            btnAdd: document.querySelector("#btnAddFluxer"),
+            template: document.querySelector("#template-fluxer"),
+            defaultEmbedColor: "#AA5CC3",
+            addConfig: function (config) {
+                const template = document.createElement("div");
+                template.dataset.type = "fluxer";
+                template.appendChild(Webhook.baseConfig.template.cloneNode(true).content);
+                template.appendChild(Webhook.fluxer.template.cloneNode(true).content);
+
+                const txtColor = template.querySelector("[data-name=txtEmbedColor]");
+                const selColor = template.querySelector("[data-name=EmbedColor]");
+                txtColor.addEventListener("input", function () {
+                    selColor.value = value;
+                });
+                selColor.addEventListener("change", function () {
+                    txtColor.value = value;
+                });
+
+                const baseConfig = Webhook.baseConfig.addConfig(template, "Fluxer", config.WebhookName);
+                Webhook.configurationWrapper.appendChild(baseConfig);
+
+                // Load configuration.
+                Webhook.fluxer.setConfig(config, baseConfig);
+            },
+            setConfig: function (config, element) {
+                Webhook.baseConfig.setConfig(config, element);
+                element.querySelector("[data-name=txtAvatarUrl]").value = config.AvatarUrl || "";
+                element.querySelector("[data-name=txtUsername]").value = config.Username || "";
+                element.querySelector("[data-name=ddlMentionType]").value = config.MentionType || "None";
+                element.querySelector("[data-name=txtEmbedColor]").value = config.EmbedColor || Webhook.fluxer.defaultEmbedColor;
+                element.querySelector("[data-name=EmbedColor]").value = config.EmbedColor || Webhook.fluxer.defaultEmbedColor;
+            },
+            getConfig: function (e) {
+                const config = Webhook.baseConfig.getConfig(e);
+                config.AvatarUrl = e.querySelector("[data-name=txtAvatarUrl]").value || "";
+                config.Username = e.querySelector("[data-name=txtUsername]").value || "";
+                config.MentionType = e.querySelector("[data-name=ddlMentionType]").value || "";
+                config.EmbedColor = e.querySelector("[data-name=txtEmbedColor]").value || "";
+                return config;
+            }
+        },
         generic: {
             btnAdd: document.querySelector("#btnAddGeneric"),
             template: document.querySelector("#template-generic"),
@@ -851,6 +893,7 @@ export default function (view) {
 
             // Add click handlers
             Webhook.discord.btnAdd.addEventListener("click", Webhook.discord.addConfig);
+            Webhook.fluxer.btnAdd.addEventListener("click", Webhook.fluxer.addConfig);
             Webhook.generic.btnAdd.addEventListener("click", Webhook.generic.addConfig);
             Webhook.ntfy.btnAdd.addEventListener("click", Webhook.ntfy.addConfig);
             Webhook.genericForm.btnAdd.addEventListener("click", Webhook.genericForm.addConfig);
@@ -878,6 +921,12 @@ export default function (view) {
             const discordConfigs = document.querySelectorAll("[data-type=discord]");
             for (let i = 0; i < discordConfigs.length; i++) {
                 config.DiscordOptions.push(Webhook.discord.getConfig(discordConfigs[i]));
+            }
+
+            config.FluxerOptions = [];
+            const fluxerConfigs = document.querySelectorAll("[data-type=fluxer]");
+            for (let i = 0; i < fluxerConfigs.length; i++) {
+                config.FluxerOptions.push(Webhook.fluxer.getConfig(fluxerConfigs[i]));
             }
 
             config.GenericOptions = [];
@@ -953,6 +1002,10 @@ export default function (view) {
                 document.querySelector("#txtServerUrl").value = config.ServerUrl || "";
                 for (let i = 0; i < config.DiscordOptions.length; i++) {
                     Webhook.discord.addConfig(config.DiscordOptions[i]);
+                }
+
+                for (let i = 0; i < config.FluxerOptions.length; i++) {
+                    Webhook.fluxer.addConfig(config.FluxerOptions[i]);
                 }
 
                 for (let i = 0; i < config.GenericOptions.length; i++) {
