@@ -42,8 +42,8 @@ public class WebhookSender : IWebhookSender
     /// </summary>
     /// <param name="logger">Instance of the <see cref="ILogger{WebhookSender}"/> interface.</param>
     /// <param name="discordClient">Instance of <see cref="IWebhookClient{DiscordOption}"/>.</param>
-    /// <param name="fluxerClient">Instance of <see cref="iWebhookClient{FluxerOption}"/>,</param>
-    /// /// <param name="genericClient">Instance of the <see cref="IWebhookClient{GenericOption}"/>.</param>
+    /// <param name="fluxerClient">Instance of <see cref="IWebhookClient{FluxerOption}"/>.</param>
+    /// <param name="genericClient">Instance of the <see cref="IWebhookClient{GenericOption}"/>.</param>
     /// <param name="genericFormClient">Instance of the <see cref="IWebhookClient{GenericFormOption}"/>.</param>
     /// <param name="gotifyClient">Instance of <see cref="IWebhookClient{GotifyOption}"/>.</param>
     /// <param name="pushbulletClient">Instance of the <see cref="IWebhookClient{PushbulletOption}"/>.</param>
