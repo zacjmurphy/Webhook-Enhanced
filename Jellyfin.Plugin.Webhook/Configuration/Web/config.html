@@ -22,9 +22,6 @@
             <button id="btnAddDiscord" is="emby-button" type="button" class="raised button block">
                 <span>Add Discord Destination</span>
             </button>
-            <button id="btnAddFluxer" is="emby-button" type="button" class="raised button block">
-                <span>Add Fluxer Destination</span>
-            </button>
             <button id="btnAddGeneric" is="emby-button" type="button" class="raised button block">
                 <span>Add Generic Destination</span>
             </button>
@@ -163,27 +160,6 @@
     </template>
 
     <template id="template-discord">
-        <div class="inputContainer">
-            <input is="emby-input" type="text" data-name="txtAvatarUrl" label="Avatar Url:"/>
-        </div>
-        <div class="inputContainer">
-            <input is="emby-input" type="text" data-name="txtUsername" label="Webhook Username:"/>
-        </div>
-        <div class="selectContainer">
-            <select is="emby-select" data-name="ddlMentionType" label="Mention Type:">
-                <option value="Everyone">@everyone</option>
-                <option value="Here">@here</option>
-                <option value="None">None</option>
-            </select>
-        </div>
-        <div class="inputContainer">
-            <label>Embed Color</label>
-            <input type="color" data-name="EmbedColor" is="emby-input" style="height: 2.2em;"/>
-            <input type="text" is="emby-input" data-name="txtEmbedColor"/>
-        </div>
-    </template>
-
-    <template id="template-fluxer">
         <div class="inputContainer">
             <input is="emby-input" type="text" data-name="txtAvatarUrl" label="Avatar Url:"/>
         </div>
